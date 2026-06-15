@@ -14,7 +14,7 @@ int climbStairs(const int n) {
     }
 
     // calculate result for current step from results of the last two steps
-    int results[3] = {1, 2, 0};
+    int results[3] = {1, 2, 0}; // pre-previous step, previous step, current step
     for (int i = 3; i <= n; i++) {
         results[2] = results[0] + results[1];
         results[0] = results[1];
