@@ -9,4 +9,5 @@ add_executable(LeetCode main.c
         26.c
         1855.c
         9.c
+        58.c
 )
