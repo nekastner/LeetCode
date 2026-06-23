@@ -20,5 +20,5 @@ int maxDistance(const int* nums1, const int nums1Size, const int* nums2, const i
 
     return maxPairI2 - maxPairI1;
 
-    // TODO: takes to longc
+    // TODO: takes to long
 }
