@@ -1,5 +1,7 @@
 #include <stddef.h>
 
+// TODO: review
+
 struct ListNode {
     int val;
     struct ListNode *next;

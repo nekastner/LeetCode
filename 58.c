@@ -1,3 +1,5 @@
+// TODO: review
+
 int lengthOfLastWord(const char* s) {
 
     // define variables for loop and return

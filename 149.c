@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+// TODO: review
+
 int compare(const void *a, const void *b) {
     const int* rowA = *(const int**)a;
     const int* rowB = *(const int**)b;

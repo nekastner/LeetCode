@@ -1,5 +1,7 @@
 #include <string.h>
 
+// TODO: review
+
 int removeDuplicates(int* nums, const int numsSize) {
 
     // nums.length == (0 || 1)

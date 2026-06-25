@@ -1,17 +1,12 @@
 #include <stdbool.h>
 
-bool isPowerOfTwo(const int n) {
-
-    // filter edge cases
-    if (n <= 0) {
-        return false;
-    }
-
-    // actually check condition
-    int n_rest = n;
+bool isPowerOfTwo(int n) {
+    // handle edge case
+    if (n <= 0) return false;
+    // check if n is power of four
     while (true) {
-        if (n_rest == 1) return true;
-        if (n_rest % 2 != 0) return false;
-        n_rest >>= 1;
+        if (n == 1) return true;
+        if (n & 1) return false;
+        n >>= 1;
     }
 }

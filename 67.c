@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// TODO: review
+
 char* addBinary(const char* a, const char* b) {
     const size_t a_len = strlen(a);
     const size_t b_len = strlen(b);

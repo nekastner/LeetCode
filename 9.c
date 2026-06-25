@@ -1,5 +1,7 @@
 #include <stdbool.h>
 
+// TODO: review
+
 int pow_of_10(const int exp) {
     int val = 1;
     for (int i = 0; i < exp; i++) val *= 10;
