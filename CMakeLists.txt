@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(LeetCode main.c
         9.c
+        17.c
         19.c
         26.c
         50.c
