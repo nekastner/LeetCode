@@ -1,64 +1,33 @@
 #include <stdbool.h>
+#include <stdint.h>
+#include <math.h>
 
-// TODO: review
+static bool isPalindrome(int x)
+{
+    if (x < 0) return false; // negative integers can not be palindromes
+    if (x < 10) return true; // all integers of length 1 are palindromes
 
-int pow_of_10(const int exp) {
-    int val = 1;
-    for (int i = 0; i < exp; i++) val *= 10;
-    return val;
-}
+    // TODO: without array
+    uint8_t decimal_places[10]; // buffer for each decimal place (2^31 - 1 = 2147483647 -> 10 digits max)
+    for (int i = 0; i < 10; i++) decimal_places[i] = 0; // set all places in buffer to 0
 
-bool isPalindrome(int x) {
-
-    // negative integers can not be palindromes
-    if (x < 0) return false;
-
-    // all integers of length 1 are palindromes
-    if (x < 10) return true;
-
-    // buffer for each decimal place
-    char broken_down[10];
-
-    // set all places in buffer to 0
-    for (int i = 0; i < 10; i++) broken_down[i] = 0;
-
-    // load x into buffer
-    for (int i = 9; i >= 0; i--) {
-
-        // calculate power for current decimal place
-        const int pow = pow_of_10(i);
-
-        // if the power is too small, skip to next decimal place
-        if (pow > x) continue;
-
-        // calc decimal place
-        const char dec_plc = (char) (x / pow);
-
-        // load decimal place into buffer
-        broken_down[i] = dec_plc;
-
-        // subtract the power from x
-        x -= dec_plc * pow;
+    // load x into array of decimal places
+    int power = (int)pow(10, 10);
+    for (int i = 9; i >= 0; i--)
+    {
+        power /= 10; // calculate power for current decimal place
+        if (power > x) continue; // if the power is too small, skip to next decimal place
+        decimal_places[i] = (uint8_t) (x / power); // calculate decimal place and load it into array for decimal places
+        x -= decimal_places[i] * power; // subtract the decimal place from x
     }
 
-    // define indexes for head and tail of buffer
-    int i_a = 0, i_b = 9;
+    int i_a = 0, i_b = 9; //  indexes for head and tail digits of x
+    for (; i_b >= 2; i_b--) if (decimal_places[i_b] != 0) break; // set tail index to last value that is not 0
 
-    // set tail index to last value that is not 0
-    for (; i_b >= 2; i_b--) { // because then i_a and i_b are directly beside each other
-        if (broken_down[i_b] != 0) break;
-    }
-
-    while (true) {
-
-        // if both indexes reached each other, it must be a palindrome
-        if (i_a >= i_b) return true;
-
-        // if the values at i_a and i_b are not equal, it is no palindrome
-        if (broken_down[i_a] != broken_down[i_b]) return false;
-
-        // move the indexes towards each other
-        i_a++;
-        i_b--;
+    while (true)
+    {
+        if (i_a >= i_b) return true; // if both indexes reached each other, it must be a palindrome
+        if (decimal_places[i_a] != decimal_places[i_b]) return false; // if the values at i_a and i_b are not equal, it is no palindrome
+        i_a++; i_b--; // move the indexes towards each other
     }
 }
