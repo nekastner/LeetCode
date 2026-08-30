@@ -27,6 +27,8 @@ static struct ListNode* swapPairs(struct ListNode* head)
         struct ListNode* pair_node_1 = pre_pair_node->next;
         struct ListNode* pair_node_2 = pair_node_1->next;
 
+        // TODO: swap them in memory
+
         // swap pair nodes via pointer changes
         pre_pair_node->next = pair_node_2;
         pair_node_1->next = pair_node_2->next;
