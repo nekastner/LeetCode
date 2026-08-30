@@ -1,4 +1,3 @@
-#include <stddef.h>
 #include <string.h>
 
 struct ListNode
@@ -7,35 +6,21 @@ struct ListNode
     struct ListNode *next;
 };
 
-static struct ListNode* swap_pair(struct ListNode* head) {
-
-    if (head == NULL || head->next == NULL) {
-        return NULL;
-    }
-
-    struct ListNode* buffer[3];
-    buffer[0] = head;
-    buffer[1] = buffer[0]->next;
-    buffer[2] = buffer[1]->next;
-
-    buffer[1]->next = buffer[0];
-    if (buffer[2] != NULL && buffer[2]->next != NULL) {
-        buffer[0]->next = buffer[2]->next;
-    }
-
-    return buffer[2];
-}
-
 static struct ListNode* swapPairs(struct ListNode* head)
 {
-    struct ListNode* head_new = head->next; // head will be swapped with node 2 (index 1)
+    struct ListNode* indirect = head;
 
-    struct ListNode* curr = head;
-    while (curr != NULL) {
-        curr = swap_pair(curr);
+    while (indirect != NULL && indirect->next != NULL)
+    {
+        // swap pair
+        struct ListNode* temp = indirect->next;
+        indirect->next = temp->next;
+        temp->next = indirect;
+        // iterate to next pair
+        indirect = indirect->next;
     }
 
-    return head_new;
+    return head;
 }
 
-// TODO: solve
+// TODO: solve (pairs do not point to each other properly anymore, is in-memory swap okay?)
