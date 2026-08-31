@@ -1,33 +1,21 @@
 #include <stdbool.h>
-#include <stdint.h>
 #include <math.h>
 
-static bool isPalindrome(int x)
+static bool isPalindrome(const int x)
 {
     if (x < 0) return false; // negative integers can not be palindromes
-    if (x < 10) return true; // all integers of length 1 are palindromes
+    if (x < 10) return true; // all decimal numbers of length 1 are palindromes
 
-    // TODO: without array
-    uint8_t decimal_places[10]; // buffer for each decimal place (2^31 - 1 = 2147483647 -> 10 digits max)
-    for (int i = 0; i < 10; i++) decimal_places[i] = 0; // set all places in buffer to 0
+    int power_low = 1; // lowest power of 10 we need
+    int power_high = (int)pow(10, 9); // highest power of 10 possible for (2^31 - 1)
+    while (power_high > x) power_high /= 10; // find highest power we need for x
 
-    // load x into array of decimal places
-    int power = (int)pow(10, 10);
-    for (int i = 9; i >= 0; i--)
+    // compare decimal digits
+    while (1)
     {
-        power /= 10; // calculate power for current decimal place
-        if (power > x) continue; // if the power is too small, skip to next decimal place
-        decimal_places[i] = (uint8_t) (x / power); // calculate decimal place and load it into array for decimal places
-        x -= decimal_places[i] * power; // subtract the decimal place from x
-    }
-
-    int i_a = 0, i_b = 9; //  indexes for head and tail digits of x
-    for (; i_b >= 2; i_b--) if (decimal_places[i_b] != 0) break; // set tail index to last value that is not 0
-
-    while (true)
-    {
-        if (i_a >= i_b) return true; // if both indexes reached each other, it must be a palindrome
-        if (decimal_places[i_a] != decimal_places[i_b]) return false; // if the values at i_a and i_b are not equal, it is no palindrome
-        i_a++; i_b--; // move the indexes towards each other
+        if (power_low >= power_high) return true;
+        if (x / power_low % 10 != x / power_high % 10) return false;
+        power_low *= 10;
+        power_high /= 10;
     }
 }
