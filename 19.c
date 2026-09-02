@@ -1,34 +1,35 @@
 #include <stddef.h>
 
-// TODO: review
-
 struct ListNode {
     int val;
     struct ListNode *next;
 };
 
-struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
-    // if list.length <= 1
-    if (head == NULL || head->next == NULL) return NULL;
-    // else
-    struct ListNode* toDeletePrevious = NULL; // node in front of <node to delete>
-    const struct ListNode* current = head; // current node on iteration
-    int list_length = 0;
-    while (current != NULL) {
-        list_length++; // increment list length counter
-        if (list_length == n+1) toDeletePrevious = head;
-        else if (list_length > n) toDeletePrevious = toDeletePrevious->next;
-        current = current->next; // jump into next node
+struct ListNode* removeNthFromEnd(struct ListNode* head, const int n)
+{
+    // move to index n if possible
+    const struct ListNode* current_node = head;
+    for (int i = 0; i < n; i++)
+    {
+        if (current_node == NULL) return NULL;
+        current_node = current_node->next;
     }
-    // if first element shall be removed
-    if (list_length == n) {
-        struct ListNode* head_new = head->next; // save new head
-        head->next = NULL; // remove link to list in <node to delete>
-        return head_new;
+
+    // if head should be deleted (because n equals the list length)
+    if (current_node == NULL) return head->next;
+
+    // iterate through list with distance n to the latest known node
+    struct ListNode* prev_to_delete_node = head;
+    while (current_node->next != NULL)
+    {
+        current_node = current_node->next;
+        prev_to_delete_node = prev_to_delete_node->next;
     }
-    // else
-    struct ListNode* toDelete = toDeletePrevious->next; // save <node to delete>
-    toDeletePrevious->next = toDelete->next; // remove link in list to <node to delete>
-    toDelete->next = NULL; // remove link to list in <node to delete>
+
+    // if tail should be deleted (because there is no node after the node to delete)
+    if (prev_to_delete_node->next->next == NULL) prev_to_delete_node->next = NULL;
+    // delete node at index n
+    else prev_to_delete_node->next = prev_to_delete_node->next->next;
+
     return head;
 }
