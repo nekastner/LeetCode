@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-// TODO: review
+// TODO: solve
 
 int compare(const void *a, const void *b) {
     const int* rowA = *(const int**)a;
@@ -42,8 +42,6 @@ void free_copy(int** copy, const int pointsSize) {
 }
 
 int maxPoints(const int* const* points, const int pointsSize, const int* pointsColSize) {
-
-    // TODO: unsolved
 
     int** sortedPoints = create_copy(points, pointsSize, pointsColSize);
     if (sortedPoints == NULL) {

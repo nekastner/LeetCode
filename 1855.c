@@ -1,3 +1,5 @@
+// TODO: takes to long
+
 int maxDistance(const int* nums1, const int nums1Size, const int* nums2, const int nums2Size) {
 
     int maxPairI1 = 0, maxPairI2 = 0;
@@ -19,6 +21,4 @@ int maxDistance(const int* nums1, const int nums1Size, const int* nums2, const i
     }
 
     return maxPairI2 - maxPairI1;
-
-    // TODO: takes to long
 }
