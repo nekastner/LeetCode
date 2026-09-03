@@ -9,6 +9,7 @@ add_library(LeetCodeSolutions STATIC
         19.c
         24.c
         26.c
+        36.c
         50.c
         58.c
         61.c
