@@ -15,6 +15,7 @@ add_library(LeetCodeSolutions STATIC
         61.c
         67.c
         70.c
+        83.c
         149.c
         231.c
         326.c
